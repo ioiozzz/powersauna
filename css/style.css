@@ -1,0 +1,780 @@
+:root {
+  --blue: #184a8c;
+  --blue-deep: #0c2f63;
+  --blue-bright: #2d6bb8;
+  --red: #c41e3a;
+  --red-deep: #8e1428;
+  --cream: #f3ead6;
+  --paper: #efe2c4;
+  --ink: #1b1a17;
+  --brass: #c9a44a;
+  --brass-dark: #8a6b24;
+  --tile: #dce8f4;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #163e78 0 14px,
+      #c41e3a 14px 28px
+    );
+  font-family: "Noto Sans KR", sans-serif;
+  line-height: 1.6;
+}
+
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 3px,
+    rgba(0, 0, 0, 0.035) 3px 4px
+  );
+}
+
+.page-frame {
+  max-width: 1080px;
+  margin: 24px auto;
+  background: var(--cream);
+  box-shadow:
+    0 0 0 8px var(--brass),
+    0 0 0 12px var(--blue-deep),
+    0 24px 50px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  background: linear-gradient(#1a3f7a, var(--blue-deep));
+  color: #fff8e7;
+  padding: 8px 16px;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.04em;
+  border-bottom: 4px solid var(--red);
+}
+
+.topbar__left,
+.topbar__clock {
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.topbar__marquee {
+  overflow: hidden;
+  margin: 0;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.topbar__track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker 22s linear infinite;
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero {
+  position: relative;
+  min-height: 78vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 20px 64px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #fff7e4 0%, #e7d7b0 55%, #c9b48a 100%);
+}
+
+.hero__tiles {
+  position: absolute;
+  inset: auto 0 0;
+  height: 38%;
+  background:
+    linear-gradient(rgba(12, 47, 99, 0.08), rgba(12, 47, 99, 0.08)),
+    repeating-conic-gradient(#f7f1e2 0% 25%, #c9d8ec 0% 50%) 0 0 / 36px 36px;
+  border-top: 10px solid var(--blue);
+  box-shadow: inset 0 12px 18px rgba(255, 255, 255, 0.35);
+}
+
+.hero__tiles::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--red) 0 28px,
+    var(--blue) 28px 56px
+  );
+}
+
+.hero__steam span {
+  position: absolute;
+  bottom: 34%;
+  width: 70px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.7), transparent 70%);
+  filter: blur(8px);
+  animation: steam 7s ease-in-out infinite;
+}
+
+.hero__steam span:nth-child(1) {
+  left: 18%;
+  animation-delay: 0s;
+}
+.hero__steam span:nth-child(2) {
+  left: 38%;
+  animation-delay: 1.4s;
+}
+.hero__steam span:nth-child(3) {
+  right: 32%;
+  animation-delay: 2.2s;
+}
+.hero__steam span:nth-child(4) {
+  right: 14%;
+  animation-delay: 0.8s;
+}
+
+@keyframes steam {
+  0% {
+    transform: translateY(20px) scale(0.8);
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-90px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.gender-signs {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 28px;
+  pointer-events: none;
+}
+
+.sign {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow:
+    0 0 0 6px #fff8e7,
+    0 8px 0 rgba(0, 0, 0, 0.18);
+  text-align: center;
+  line-height: 1.05;
+}
+
+.sign--men {
+  background: radial-gradient(circle at 30% 30%, var(--blue-bright), var(--blue-deep));
+}
+
+.sign--women {
+  background: radial-gradient(circle at 30% 30%, #e24a5e, var(--red-deep));
+}
+
+.sign__han {
+  font-family: "Song Myung", serif;
+  font-size: 34px;
+  display: block;
+}
+
+.sign__ko {
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+}
+
+.board {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 100%);
+}
+
+.board__brass {
+  background: linear-gradient(#142f5c, #0b234b);
+  color: #fff7df;
+  text-align: center;
+  padding: 36px 28px 32px;
+  border: 10px solid var(--brass);
+  box-shadow:
+    inset 0 0 0 3px var(--brass-dark),
+    0 16px 0 rgba(0, 0, 0, 0.18);
+}
+
+.board__est {
+  margin: 0 0 8px;
+  font-family: "Song Myung", serif;
+  letter-spacing: 0.28em;
+  font-size: 15px;
+  color: var(--brass);
+}
+
+.board__title {
+  margin: 0;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: clamp(52px, 10vw, 92px);
+  letter-spacing: 0.08em;
+  text-shadow:
+    4px 4px 0 var(--red),
+    -2px 0 0 var(--blue-bright);
+  line-height: 1;
+}
+
+.board__sub {
+  margin: 8px 0 0;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.22em;
+  color: #d7e6ff;
+}
+
+.board__divider {
+  height: 6px;
+  margin: 18px auto;
+  width: 70%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--red) 0 18px,
+    var(--brass) 18px 28px,
+    var(--blue-bright) 28px 46px
+  );
+}
+
+.board__tag {
+  margin: 0;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.16em;
+}
+
+.open-badge {
+  position: absolute;
+  right: 24px;
+  bottom: 56px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red);
+  color: #fff;
+  text-decoration: none;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.12em;
+  padding: 10px 16px;
+  border: 3px solid #fff8e7;
+  box-shadow: 4px 4px 0 var(--blue-deep);
+}
+
+.open-badge__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #7cff9a;
+  box-shadow: 0 0 8px #7cff9a;
+  animation: blink 1.2s steps(2) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.intro,
+.facilities,
+.menus,
+.notice,
+.location,
+.contact,
+.footer {
+  padding: 56px 28px;
+}
+
+.board__tag--sub {
+  margin-top: 8px;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: #ffd4d8;
+}
+
+.menus {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #f6edd8 0 27px,
+      #eadfc8 27px 28px
+    );
+}
+
+.menu-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.menu-board {
+  background: #fff8ea;
+  border: 4px solid var(--blue-deep);
+  padding: 22px 22px 20px;
+  box-shadow: 8px 8px 0 rgba(12, 47, 99, 0.18);
+  position: relative;
+}
+
+.menu-board--women {
+  border-color: var(--red-deep);
+  box-shadow: 8px 8px 0 rgba(142, 20, 40, 0.16);
+}
+
+.menu-board__badge {
+  display: inline-block;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: var(--blue);
+  padding: 4px 10px;
+  margin-bottom: 8px;
+}
+
+.menu-board--women .menu-board__badge {
+  background: var(--red);
+}
+
+.menu-board h3 {
+  margin: 0 0 4px;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.menu-board--men h3 {
+  color: var(--blue-deep);
+}
+
+.menu-board--women h3 {
+  color: var(--red-deep);
+}
+
+.menu-board__note {
+  margin: 0 0 14px;
+  text-align: center;
+  font-family: "Do Hyeon", sans-serif;
+  color: var(--red);
+  letter-spacing: 0.06em;
+}
+
+.menu-board--men .menu-board__note {
+  color: var(--blue);
+}
+
+.menu-board ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-board li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(27, 26, 23, 0.25);
+  font-family: "Song Myung", serif;
+  font-size: 18px;
+}
+
+.menu-board .dots {
+  flex: 1;
+  border-bottom: 2px dotted #c9b48a;
+  transform: translateY(-6px);
+}
+
+.menu-board strong {
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 22px;
+  color: var(--red);
+  font-weight: 400;
+}
+
+.menu-board--men strong {
+  color: var(--blue);
+}
+
+.menu-board__speech {
+  margin: 16px 0 0;
+  text-align: center;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 18px;
+  color: var(--red);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 28px;
+  align-items: start;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 24px,
+      rgba(24, 74, 140, 0.05) 24px 25px
+    ),
+    var(--paper);
+  border-top: 8px solid var(--blue);
+  border-bottom: 8px solid var(--red);
+}
+
+.intro__stamp {
+  width: 132px;
+  height: 132px;
+  border: 6px double var(--red);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--red);
+  font-family: "Song Myung", serif;
+  font-size: 22px;
+  line-height: 1.25;
+  transform: rotate(-12deg);
+  background: #fff8ea;
+}
+
+.intro h2 {
+  margin: 0 0 16px;
+  font-family: "Song Myung", serif;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.35;
+}
+
+.intro p {
+  margin: 0 0 12px;
+  font-size: 17px;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.section-head__en {
+  display: block;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.32em;
+  color: var(--blue);
+  font-size: 13px;
+}
+
+.section-head h2 {
+  margin: 6px 0 0;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.08em;
+}
+
+.facilities {
+  background: #f7f0de;
+}
+
+.facility-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.facility {
+  background: #fffaf0;
+  padding: 22px 18px;
+  border: 3px solid var(--blue);
+  box-shadow: 6px 6px 0 rgba(24, 74, 140, 0.18);
+}
+
+.facility--red {
+  border-color: var(--red);
+  box-shadow: 6px 6px 0 rgba(196, 30, 58, 0.16);
+}
+
+.facility h3 {
+  margin: 8px 0;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 24px;
+}
+
+.facility p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.facility__icon {
+  font-size: 28px;
+  color: var(--blue);
+}
+
+.facility--red .facility__icon {
+  color: var(--red);
+}
+
+.notice {
+  background:
+    repeating-linear-gradient(#1a4a2a 0 2px, #1e5530 2px 28px);
+  color: #f4ecc4;
+}
+
+.notice__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: "Song Myung", serif;
+}
+
+.notice h2 {
+  margin: 0 0 16px;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.notice ul {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 18px;
+}
+
+.notice li + li {
+  margin-top: 10px;
+}
+
+.location {
+  background: var(--cream);
+}
+
+.location__card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 20px;
+  background: #fffaf0;
+  border: 4px solid var(--blue-deep);
+  box-shadow: 10px 10px 0 var(--red);
+}
+
+.location__info {
+  padding: 24px;
+}
+
+.location__label {
+  margin: 16px 0 4px;
+  font-family: "Do Hyeon", sans-serif;
+  color: var(--red);
+  letter-spacing: 0.08em;
+}
+
+.location__label:first-child {
+  margin-top: 0;
+}
+
+.location__value {
+  margin: 0;
+  font-size: 17px;
+}
+
+.location__hint {
+  margin: 4px 0 0;
+  color: #5a5346;
+}
+
+.location__links {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.map-btn {
+  text-decoration: none;
+  padding: 10px 14px;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.06em;
+  border: 2px solid var(--ink);
+}
+
+.map-btn--naver {
+  background: #03c75a;
+  color: #fff;
+}
+
+.map-btn--kakao {
+  background: #fee500;
+  color: #191919;
+}
+
+.location__map iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 0;
+  display: block;
+}
+
+.contact {
+  background: linear-gradient(180deg, var(--blue-deep), #08172f);
+  text-align: center;
+}
+
+.phone-box {
+  border: 8px solid var(--brass);
+  padding: 36px 20px;
+  background: radial-gradient(circle, #1b3f78, #0a1c3a);
+  color: #fff8e4;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+.phone-box__label {
+  margin: 0;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.28em;
+  color: var(--brass);
+}
+
+.phone-box__number {
+  display: inline-block;
+  margin: 10px 0 8px;
+  color: #fff;
+  text-decoration: none;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: clamp(36px, 8vw, 64px);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 18px rgba(255, 80, 90, 0.55), 3px 3px 0 var(--red);
+}
+
+.phone-box__note {
+  margin: 0 0 18px;
+  font-family: "Song Myung", serif;
+}
+
+.cta {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  text-decoration: none;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.14em;
+  padding: 12px 28px;
+  border: 3px solid #fff8e7;
+  box-shadow: 5px 5px 0 #071226;
+}
+
+.footer {
+  background: #0d1b33;
+  color: #d9cba8;
+  text-align: center;
+  border-top: 8px solid var(--red);
+  padding-top: 36px;
+}
+
+.footer__brand {
+  margin: 0 0 8px;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 28px;
+  color: #fff;
+  letter-spacing: 0.12em;
+}
+
+.footer p {
+  margin: 4px 0;
+}
+
+.footer__counter {
+  margin-top: 16px;
+  font-family: "Do Hyeon", sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.footer__counter span {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #000;
+  color: #ff3148;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid #5a1a24;
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .topbar__left {
+    display: none;
+  }
+
+  .intro,
+  .facility-grid,
+  .menu-pair,
+  .location__card {
+    grid-template-columns: 1fr;
+  }
+
+  .intro__stamp {
+    margin: 0 auto;
+  }
+
+  .gender-signs {
+    padding: 0 12px;
+  }
+
+  .sign {
+    width: 72px;
+    height: 72px;
+  }
+
+  .open-badge {
+    right: 12px;
+    bottom: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar__track,
+  .hero__steam span,
+  .open-badge__dot {
+    animation: none;
+  }
+}
